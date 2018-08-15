@@ -49,25 +49,12 @@ func (c *JPush) PushNotification(platform *Platform, audience *Audience, notific
 	if notification == nil {
 		return errors.New("通知消息不能为空")
 	}
-
-	var push Push
-	if platform == nil {
-		push.Platform = "all"
-	} else {
-		push.Platform = platform
+	push := Push{
+		Platform:     platform,
+		Audience:     audience,
+		Options:      options,
+		Notification: notification,
 	}
-
-	if audience == nil {
-		push.Audience = "all"
-	} else {
-		push.Audience = audience
-	}
-
-	if options == nil {
-		push.Options = options
-	}
-
-	push.Notification = notification
 	return c.Push(push)
 }
 
@@ -83,4 +70,18 @@ func (c *JPush) PushNotificationToAlias(alias []string, notification *Notificati
 	audience := CreateAudience()
 	audience.SetAlias(alias)
 	return c.PushNotification(nil, audience, notification, nil)
+}
+
+//PushMessage 推送自定义消息
+func (c *JPush) PushMessage(platform *Platform, audience *Audience, message *Message, options *Options) (err error) {
+	if message == nil {
+		return errors.New("自定义消息不能为空")
+	}
+	push := Push{
+		Platform: platform,
+		Audience: audience,
+		Options:  options,
+		Message:  message,
+	}
+	return c.Push(push)
 }
