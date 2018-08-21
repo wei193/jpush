@@ -3,6 +3,7 @@ package jpush
 import (
 	"errors"
 	"log"
+	"reflect"
 )
 
 //平台
@@ -25,10 +26,10 @@ type Push struct {
 
 //Push 推送
 func (c *JPush) Push(push Push) (err error) {
-	if push.Platform == nil {
+	if reflect.ValueOf(push.Platform).IsNil() {
 		push.Platform = "all"
 	}
-	if push.Audience == nil {
+	if reflect.ValueOf(push.Audience).IsNil() {
 		push.Audience = "all"
 	}
 
