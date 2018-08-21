@@ -52,6 +52,17 @@ func CreateNotification(alert string) (notification *Notification) {
 	}
 }
 
+//SetNotificationAlert 设置通知Alert
+func (notification *Notification) SetNotificationAlert(alert string) {
+	notification.Alert = alert
+	if notification.Android != nil {
+		notification.Android.Alert = alert
+	}
+	if notification.IOS != nil {
+		notification.IOS.Alert = alert
+	}
+}
+
 //AddAndroidNotification 添加安卓通知
 func (notification *Notification) AddAndroidNotification(Android *AndroidNotification) {
 	notification.Android = Android

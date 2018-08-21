@@ -35,3 +35,8 @@ func (options *Options) SetTimeLive(time time.Time) (err error) {
 	options.TimeToLive = int(time.Unix())
 	return nil
 }
+
+//SetApnsProduction APNs是否生产环境
+func (options *Options) SetApnsProduction(production bool) {
+	options.ApnsProduction = production
+}
