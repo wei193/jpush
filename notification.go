@@ -136,6 +136,16 @@ func (notification *Notification) SetIOSNotificationExtras(extras map[string]str
 	notification.IOS.Extras = extras
 }
 
+//SetIOSNotificationSound 设置IOS通知提示声音
+func (notification *Notification) SetIOSNotificationSound(sound string) {
+	if notification.IOS == nil {
+		notification.IOS = &IOSNotification{
+			Alert: notification.Alert,
+		}
+	}
+	notification.IOS.Sound = sound
+}
+
 //AddIOSNotificationExtras 设置IOS通知扩展字段
 func (notification *Notification) AddIOSNotificationExtras(key, val string) {
 	if notification.IOS == nil {
