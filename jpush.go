@@ -25,18 +25,24 @@ type JPush struct {
 	MasterSecret  string
 	Authorization string
 	ServerAddr    string
+	DevMode       bool
 }
 
 //NewJPush NewJPush
-func NewJPush(ServerAddr, AppKey, MasterSecret string) (jpush *JPush) {
+func NewJPush(ServerAddr, AppKey, MasterSecret, mode string) (jpush *JPush) {
 	if ServerAddr == "" {
 		ServerAddr = "https://api.jpush.cn"
+	}
+	devmode := false
+	if mode == "dev" {
+		devmode = true
 	}
 	return &JPush{
 		ServerAddr:    ServerAddr,
 		AppKey:        AppKey,
 		MasterSecret:  MasterSecret,
 		Authorization: "Basic " + base64.StdEncoding.EncodeToString([]byte(AppKey+":"+MasterSecret)),
+		DevMode:       devmode,
 	}
 }
 
